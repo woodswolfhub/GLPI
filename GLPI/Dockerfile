@@ -47,5 +47,7 @@ COPY local_define.php /etc/glpi/
 # Creation des répertoires de GLPI
 RUN mkdir -p /etc/glpi/conf /var/lib/glpi /var/log/glpi && chown 33:33 /etc/glpi/conf /var/lib/glpi /var/log/glpi /var/www/html/glpi/inc/downstream.php /etc/glpi/local_define.php 
 
+# openssl req -new -x509 -sha256 -newkey rsa:2048 -nodes  -keyout ssl-cert.key -days 10000 -out ssl-cert.pem -subj "/CN=example.com" -addext "subjectAltName=DNS:example.com,DNS:www.example.net,IP:10.0.0.1"
+
 COPY ./glpi-start.sh /usr/local/bin/
 CMD ["/usr/local/bin/glpi-start.sh"] 
