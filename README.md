@@ -28,8 +28,8 @@ Install and run an GLPI instance with docker.
 docker build . --tag woodswolf/glpi:9.5.5
 docker image save -o glpi.20210414.tar.gz woodswolf/glpi:9.5.5
 docker push woodswolf/glpi:9.5.5
-docker pull mariadb:focal
-docker image save -o mariadb.20210414.tar.gz mariadb:focal
+docker pull mariadb:10.5.9-focal
+docker image save -o mariadb.20210414.tar.gz mariadb:10.5.9-focal
 curl -L "https://github.com/docker/compose/releases/download/1.29.0/docker-compose-$(uname -s)-$(uname -m)" -o docker-compose
 
 
