@@ -23,12 +23,36 @@
 
 Install and run an GLPI instance with docker.
 
+# Rebuild
+```sh
+docker build . --tag woodswolf/glpi:9.5.5
+docker image save -o glpi.20210414.tar.gz woodswolf/glpi:9.5.5
+docker push woodswolf/glpi:9.5.5
+docker pull mariadb:focal
+docker image save -o mariadb.20210414.tar.gz mariadb:focal
+curl -L "https://github.com/docker/compose/releases/download/1.29.0/docker-compose-$(uname -s)-$(uname -m)" -o docker-compose
+
+
+
+```
+
+# Adminstration
+
+## Creating database dumps
+```sh
+docker exec some-mariadb sh -c 'exec mysqldump --all-databases -uroot -p"$MYSQL_ROOT_PASSWORD"' > /some/path/on/your/host/all-databases.sql
+```
 # Deploy with CLI
 
 ## Deploy GLPI 
 ```sh
 docker run --name mysql -e MYSQL_ROOT_PASSWORD=diouxx -e MYSQL_DATABASE=glpidb -e MYSQL_USER=glpi_user -e MYSQL_PASSWORD=glpi -d mysql:5.7.23
 docker run --name glpi --link mysql:mysql -p 80:80 -d diouxx/glpi
+```
+
+## Restoring data from dump files
+```sh
+docker exec -i some-mariadb sh -c 'exec mysql -uroot -p"$MYSQL_ROOT_PASSWORD"' < /some/path/on/your/host/all-databases.sql
 ```
 
 ## Deploy GLPI with existing database
@@ -143,7 +167,11 @@ services:
 To deploy, just run the following command on the same directory as files
 
 ```sh
+mkdir -p /etc/glpi/conf /var/lib/glpi /var/log/glpi
+chown 33.33 -R /etc/glpi /var/lib/glpi /var/log/glpi
+chown 33.33 install/ ../local_define.php 
 docker-compose up -d
+docker-compose down
 ```
 
 # Environnment variables

@@ -8,8 +8,8 @@ services:
     hostname: mariadb
     volumes:
       - /var/lib/mysql:/var/lib/mysql
-    env_file:
-      - ../mysql.env
+#    env_file:
+#      - mysql.env
     restart: always
     networks:
       - glpi
@@ -29,7 +29,7 @@ services:
       - /etc/glpi/conf/:/etc/glpi/conf/:rw
       - ../local_define.php:/etc/glpi/local_define.php:rw
 # Après la première installation
-      - ./install:/var/lib/glpi/install/
+      - ./install:/var/www/html/glpi/install/
     environment:
       - TIMEZONE=Europe/Brussels
     restart: always
