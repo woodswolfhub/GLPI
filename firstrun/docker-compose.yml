@@ -21,11 +21,13 @@ services:
     hostname: glpi
     ports:
       - "80:80"
+      - "443:443"
     volumes:
       - /etc/timezone:/etc/timezone:ro
       - /etc/localtime:/etc/localtime:ro
       - /var/lib/glpi/:/var/lib/glpi/:rw
       - /var/log/glpi/:/var/log/glpi/:rw
+      - /var/log/apache2/:/var/log/apache2/:rw
       - /etc/glpi/conf/:/etc/glpi/conf/:rw
       - ../local_define.php:/etc/glpi/local_define.php:rw
 # Après la première installation
