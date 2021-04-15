@@ -1,0 +1,18 @@
+[Unit]
+Description=Start GLPI and mariadb in docker bridged env
+Requires=docker.service
+After=docker.service
+Documentation=/home/glpi/README/md
+ConditionPathExists=!/home/glpi
+
+[Service]
+User=glpi
+WorkingDirectory=/home/glpi/GLPI/run/
+Type=oneshot
+RemainAfterExit=true
+ExecStart=/usr/local/bin/docker-compose up -d --remove-orphans
+ExecStop=/usr/local/bin/docker-compose down
+
+[Install]
+WantedBy=multi-user.target
+Alias=glpi.service
