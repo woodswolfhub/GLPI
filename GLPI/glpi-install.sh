@@ -37,5 +37,7 @@ echo -e "<VirtualHost *:80>\n\tDocumentRoot /var/www/html/glpi\n\n\t<Directory /
 #Add scheduled task by cron and enable
 echo "*/2 * * * * www-data /usr/bin/php /var/www/html/glpi/front/cron.php &>/dev/null" >> /etc/cron.d/glpi
 
-#Activation du module rewrite d'apache
-a2enmod rewrite
+#Activation des modules rewrite ssl php d'apache
+a2enmod rewrite 
+a2enmod ssl 
+a2enmod php7.3
