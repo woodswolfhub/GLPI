@@ -31,8 +31,8 @@ services:
       - /var/log/apache2/:/var/log/apache2/:rw
       - /etc/glpi/conf/:/etc/glpi/conf/:rw
       - ../local_define.php:/etc/glpi/local_define.php:rw
-      - ../ssl/ssl-cert.key:/etc/glpi/conf/ssl-cert.key
-      - ../ssl/ssl-cert.pem:/etc/glpi/conf/ssl-cert.pem
+      - ../ssl/ssl-cert.key:/etc/glpi/ssl-cert.key
+      - ../ssl/ssl-cert.pem:/etc/glpi/ssl-cert.pem
 # Après la premiere installation
       - ./install:/var/www/html/glpi/install/
     environment:

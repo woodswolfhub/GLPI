@@ -8,6 +8,7 @@ services:
     hostname: mariadb
     volumes:
       - /var/lib/mysql:/var/lib/mysql
+# Premiere installation
     env_file:
       - mysql.env
     restart: always
@@ -30,11 +31,23 @@ services:
       - /var/log/apache2/:/var/log/apache2/:rw
       - /etc/glpi/conf/:/etc/glpi/conf/:rw
       - ../local_define.php:/etc/glpi/local_define.php:rw
-# Après la première installation
+      - ../ssl/ssl-cert.key:/etc/glpi/ssl-cert.key
+      - ../ssl/ssl-cert.pem:/etc/glpi/ssl-cert.pem
+# Après la premiere installation
 #      - ./install:/var/www/html/glpi/install/
     environment:
       - TIMEZONE=Europe/Brussels
     restart: always
+    environment:
+      - APACHE_SERVERNAME="glpi.com"
+# max memory limit
+#      - ENV PHP_MEMORY_LIMIT="64M"
+#      - ENV PHP_FILE_UPLOADS= "On"
+#not mandatory but recommended
+#      - ENV PHP_MAX_EXECUTION_TIME="600"
+#      - ENV PHP_SESSION.AUTO_START="off"
+#not mandatory but recommended
+#      - ENV PHP_SESSION.USE_TRANS_SID="0" 
     networks:
       - glpi
       
